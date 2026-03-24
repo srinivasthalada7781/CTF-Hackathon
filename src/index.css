@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71% 4%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+
+    --primary: 221 83% 53%; /* Professional Blue */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 263 70% 50%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221 83% 53%;
+
+    --radius: 1rem;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 98%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 221 83% 53%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(221, 83%, 53%, 0.03) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsla(180, 70%, 50%, 0.02) 0px, transparent 50%),
+      radial-gradient(at 50% 50%, hsla(263, 70%, 50%, 0.01) 0px, transparent 50%);
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 
+      0 10px 40px -10px rgba(0, 0, 0, 0.04),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    @apply rounded-[1.25rem] transition-all duration-300;
+  }
+
+  .human-badge {
+    @apply flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 text-[10px] font-black uppercase tracking-wider border border-blue-100/50;
+  }
+
+  .neon-border {
+    position: relative;
+    border: 1px solid rgba(221, 83, 53, 0.2);
+    box-shadow: 0 0 15px rgba(221, 83, 53, 0.02);
+  }
+
+  .neon-border-warning {
+    position: relative;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.02);
+  }
+
+  .neon-text-primary {
+    @apply text-primary font-bold;
+  }
+
+  .neon-text-destructive {
+    @apply text-destructive font-bold;
+  }
+
+  .label-caps {
+    font-family: 'JetBrains Mono', monospace;
+    @apply text-[10px] font-bold uppercase tracking-[2px] text-slate-500;
+  }
+
+  .data-mono {
+    font-family: 'JetBrains Mono', monospace;
+    @apply text-[13px] font-semibold tracking-tight leading-none text-slate-800;
+  }
+
+  .scan-line {
+    background: linear-gradient(180deg, transparent 0%, hsl(var(--primary)) 50%, transparent 100%);
+    filter: blur(2px);
+  }
+  
+  /* Custom scrollbar for that premium feel */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+}
+
+@keyframes scan-sweep {
+  0% { top: 0%; opacity: 0; }
+  5% { opacity: 0.5; }
+  95% { opacity: 0.5; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.animate-scan-sweep {
+  animation: scan-sweep 2s linear infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
