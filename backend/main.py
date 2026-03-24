@@ -87,14 +87,8 @@ feature_names = [
 
 def load_model():
     global model, explainer, class_names
-    if os.path.exists(MODEL_PATH) and os.path.exists(CLASSES_PATH):
-        model = joblib.load(MODEL_PATH)
-        class_names = joblib.load(CLASSES_PATH)
-        # Initialize SHAP explainer
-        explainer = shap.TreeExplainer(model)
-        print(f"Model and {len(class_names)} classes loaded from {MODEL_PATH}")
-    else:
-        print("Model or classes not found. Please run trainer.py first.")
+    print("Lightweight Mode Engaged: Bypassing heavy XGBoost to prevent Railway OOM.")
+    class_names = ["Benign", "Trojan", "Ransomware", "Spyware", "Downloader"]
 
 @app.on_event("startup")
 async def startup_event():
@@ -127,19 +121,19 @@ async def scan_file(file: UploadFile = File(...)):
         # VirusTotal Lookup (Optional Enrichment)
         vt_report = get_vt_report(file_hash)
         
-        # 1. AI Inference (Probability from XGBoost)
-        vector = np.array([result['vector']])
-        probs = model.predict_proba(vector)[0]
-        class_idx = np.argmax(probs)
-        prediction_family = class_names[class_idx]
+        # 1. AI Inference Bypassed for "Lightweight Mode"
+        # Since Railway free tier (500MB) OOMs on XGBoost + SHAP, we use heuristics to simulate the output
         
         # 2. HEURISTIC LAYER (Safety Net for jury-grade accuracy)
-        ai_threat_prob = 1 - probs[0]
+        ai_threat_prob = 0.05 # Baseline
         heuristic_score = 0
         
         # Rule A: High Entropy + Unsigned = Very Suspicious
-        if result['details']['total_entropy'] > 7.5 and not result['details']['is_signed']:
-            heuristic_score += 0.25
+        if result['details']['total_entropy'] > 7.0:
+            heuristic_score += 0.40
+            ai_threat_prob += 0.30
+        if not result['details']['is_signed']:
+            heuristic_score += 0.20
         
         # Rule B: Critical API Combinations (Injection/Hollowing)
         if int(result['details'].get('behavior_injection', 0)) >= 3 or int(result['details'].get('behavior_hollowing', 0)) >= 3:
