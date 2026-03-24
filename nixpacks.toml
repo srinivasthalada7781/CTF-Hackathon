@@ -1,8 +1,8 @@
 [phases.setup]
-nixPkgs = ["python311", "gcc"]
+nixPkgs = ["python311", "gcc", "libomp"]
 
 [phases.install]
-cmds = ["python -m venv /opt/venv", ". /opt/venv/bin/activate", "pip install -r backend/requirements.txt"]
+cmds = ["python -m venv /opt/venv", ". /opt/venv/bin/activate", "pip install --no-cache-dir -r backend/requirements.txt"]
 
 [start]
-cmd = ". /opt/venv/bin/activate && cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT"
+cmd = ". /opt/venv/bin/activate && cd backend && python main.py"
