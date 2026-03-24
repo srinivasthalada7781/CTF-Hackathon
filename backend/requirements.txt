@@ -1,12 +1,8 @@
 fastapi
 uvicorn
 pefile
-xgboost
-shap
-joblib
 supabase
 pandas
 numpy
-scikit-learn
 python-multipart
 python-dotenv
