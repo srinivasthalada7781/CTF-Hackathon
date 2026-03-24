@@ -162,7 +162,7 @@ const AnalyticsPage = () => {
             <div className="label-caps mb-4">Confusion Matrix (Validation Set)</div>
             <div className="aspect-video bg-muted rounded-lg overflow-hidden border border-border flex items-center justify-center">
               <img 
-                src="http://localhost:8000/static/reports/confusion_matrix.png" 
+                src={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/static/reports/confusion_matrix.png`} 
                 alt="Confusion Matrix" 
                 className="max-w-full max-h-full object-contain"
                 onError={(e) => {
@@ -175,7 +175,7 @@ const AnalyticsPage = () => {
             <div className="label-caps mb-4">Multi-Class ROC Curves</div>
             <div className="aspect-video bg-muted rounded-lg overflow-hidden border border-border flex items-center justify-center">
               <img 
-                src="http://localhost:8000/static/reports/roc_curve.png" 
+                src={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/static/reports/roc_curve.png`} 
                 alt="ROC Curve" 
                 className="max-w-full max-h-full object-contain"
                 onError={(e) => {

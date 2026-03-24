@@ -3,7 +3,7 @@ import { Settings, Server, Bell, Shield, Key } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const SettingsPage = () => {
-  const [apiUrl, setApiUrl] = useState('http://localhost:8000');
+  const [apiUrl, setApiUrl] = useState(import.meta.env.VITE_API_URL || 'http://localhost:8000');
   const [notifications, setNotifications] = useState(true);
   const [autoScan, setAutoScan] = useState(false);
   const [threshold, setThreshold] = useState(70);

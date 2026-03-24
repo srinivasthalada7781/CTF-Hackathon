@@ -63,7 +63,8 @@ const Index = () => {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await fetch('http://localhost:8000/scan', {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${API_URL}/scan`, {
         method: 'POST',
         body: formData,
       });

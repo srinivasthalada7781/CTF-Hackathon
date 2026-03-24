@@ -18,7 +18,8 @@ const ModelIntelligenceLab = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('http://localhost:8000/metrics')
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+    fetch(`${API_URL}/metrics`)
       .then(r => { if (!r.ok) throw new Error('Metrics not available'); return r.json(); })
       .then(data => setMetrics(data))
       .catch(e => setError(e.message))
